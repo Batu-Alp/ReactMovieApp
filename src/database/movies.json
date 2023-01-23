@@ -1,0 +1,36 @@
+
+    [
+      {
+        "id": 1,
+        "genres": ["Science Fiction"],
+        "rating": 5,
+        "title": "Godzilla vs. Kong",
+        "description": "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
+        "poster": "http://localhost:3000/img/godzilla.png",
+        "url": "#"
+      },
+
+ 
+      {
+        "id": 2,
+        "genres": ["Science Fiction"],
+        "rating": 5,
+        "title": "Godzilla vs. Kong",
+        "description": "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
+        "poster": "http://localhost:3000/img/godzilla.png",
+        "url": "#"
+      },
+
+      {
+        "id": 3,
+        "genres": ["Science Fiction"],
+        "rating": 3,
+        "title": "Wonder Woman",
+        "poster": "http://localhost:3000/img/wonder-woman.png",
+        "url": "#"
+      }
+
+
+    ]
+    
+  
