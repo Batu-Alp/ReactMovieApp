@@ -95,6 +95,7 @@ function App() {
 
       <div className='row d-flex align-items-center mt-4 mb-4'>
       <h1>Movies</h1>
+      <h1>Movies</h1>
 
       <div className='col col-sm-4'>
 			    <form className='search-box'>
