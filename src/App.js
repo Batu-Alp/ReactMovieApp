@@ -91,13 +91,13 @@ function App() {
 
 
     
-    <div className="container-fluid App">
+    <div className="App">
 
-      <div className='row d-flex align-items-center mt-4 mb-4'>
-      <h1>Movies</h1>
-      <h1>Movies</h1>
-
-      <div className='col col-sm-4'>
+      <div className='row'>
+        <div className='header'>
+          <h1>Movies</h1>
+        </div>
+      <div className='col'>
 			    <form className='search-box'>
           <input
             className='search-movie'
@@ -105,17 +105,18 @@ function App() {
             onChange={(event) => setSearchedMovie(event.target.value)}
             placeholder='Search...'
 			    ></input>
-          <input onClick={callSearchFunction} type="submit" value="Serach..."></input>
+          <input onClick={callSearchFunction} type="submit" value="Search..."></input>
 
         </form>
 		    </div>
 			</div>
 
-      <div className='row'>
+      <div className='movie-list'>
 
 			{movies.map((movie, index) => (
-				<div className='image-container d-flex justify-content-start m-3'>
-					<img src={movie.Poster} alt='movie'></img>
+				<div className='movies'>
+					<h2>{movie.Title}</h2>
+          <img src={movie.Poster} alt='movie'></img>
 					<div
 						onClick={() => addFavouriteMovie(movie)}
 						className='overlay d-flex align-items-center justify-content-center'
