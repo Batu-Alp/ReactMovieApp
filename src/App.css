@@ -1,5 +1,12 @@
-.App {
-  text-align: center;
+/*body {
+	background: #141414;
+	color: #ffffff;
+}*/
+
+.App > .row {
+  /*text-align: center;*/
+  overflow-x: auto;
+	flex-wrap: nowrap;
 }
 
 .App-logo {

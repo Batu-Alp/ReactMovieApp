@@ -1,35 +1,38 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import movies from './database/movies.json';
+//import movies from './database/movies.json';
 
 function App() {
 
-  //const [movies, setMovies] = useState([]);
 
-  const [searchedMovie, setsearchedMovie] = useState('');
+  const [movies, setMovies] = useState([]);
+
+  const [searchedMovie, setSearchedMovie] = useState('');
 	const [favourites, setFavourites] = useState([]);
 
   const getsearchedMovie= async (searchedMovie) => {
 
-    const url = movies.filter(item => item.title === searchedMovie);
-		const response = await fetch(url);
+    //const response = movies.filter(item => item.title === searchedMovie);
+		const response = await fetch(`http://www.omdbapi.com/?s=${searchedMovie}&apikey=42dc6836`);
 		const responseJson = await response.json();
+    //setSearchedMovie(response);
 
 		if (responseJson.Search) {
-			setsearchedMovie(responseJson.Search);
+			setMovies(responseJson.Search);
+      console.log("responseJson.Search" + responseJson.Search);
 		}
 	};
 
-  useEffect(() => {
+  /*useEffect(() => {
 		getsearchedMovie(searchedMovie);
-	}, [searchedMovie]);
+	}, [searchedMovie]);*/
 
-  	useEffect(() => {
+  useEffect(() => {
 		const movieFavourites = JSON.parse(
 			localStorage.getItem('react-movie-app-favourites')
-		);
+	);
 
-		if (movieFavourites) {
+	if (movieFavourites) {
 			setFavourites(movieFavourites);
 		}
 	}, []);
@@ -74,25 +77,53 @@ function App() {
 		setFavourites(newFavouriteList);
 		saveToLocalStorage(newFavouriteList);
 	};
+
+  const resetInputField = () => {
+    setSearchedMovie("")
+  }
+
+  const callSearchFunction = (e) => {
+    e.preventDefault();
+    getsearchedMovie(searchedMovie);
+    resetInputField();
+  }
   return (
-    <div className="App">
-      <h1>Movies</h1>
+
+
+    
+    <div className="container-fluid App">
 
       <div className='row d-flex align-items-center mt-4 mb-4'>
-      
-        <div className='col col-sm-4'>
-			    <input
+      <h1>Movies</h1>
+
+      <div className='col col-sm-4'>
+			    <form className='search-box'>
+          <input
             className='search-movie'
             value={searchedMovie}
-            onChange={(e) => setsearchedMovie(e.target.value)}
+            onChange={(event) => setSearchedMovie(event.target.value)}
             placeholder='Search...'
 			    ></input>
+          <input onClick={callSearchFunction} type="submit" value="Serach..."></input>
+
+        </form>
 		    </div>
 			</div>
 
       <div className='row'>
 
-          {
+			{movies.map((movie, index) => (
+				<div className='image-container d-flex justify-content-start m-3'>
+					<img src={movie.Poster} alt='movie'></img>
+					<div
+						onClick={() => addFavouriteMovie(movie)}
+						className='overlay d-flex align-items-center justify-content-center'
+					>
+					</div>
+				</div>
+			))}
+          
+          {/*
             movies.map( m => (
 
               <div className='image-container d-flex justify-content-start m-3'>
@@ -100,12 +131,12 @@ function App() {
 						      onClick={() => addFavouriteMovie(m)}
 						      className='overlay d-flex align-items-center justify-content-center'
 					        >
+      
 					</div>
 				</div>
              
             ))
-          }
-
+            */}
 			</div>
 
       {
@@ -136,7 +167,7 @@ function App() {
 
       
     </div>
-  );
+  )
 }
 
 export default App;
