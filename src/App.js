@@ -117,6 +117,10 @@ function App() {
 				<div className='movies'>
 					<h2>{movie.Title}</h2>
           <img src={movie.Poster} alt='movie'></img>
+          <span class="imgtext">
+            <h1>THIS IS A TITLE</h1>
+            <p>and this is a description</p>
+            </span>
 					<div
 						onClick={() => addFavouriteMovie(movie)}
 						className='overlay d-flex align-items-center justify-content-center'
