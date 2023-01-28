@@ -2,6 +2,135 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 //import movies from './database/movies.json';
 
+
+
+
+function App() {
+  const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [displayMovies, setDisplayMovies] = useState([]);
+	const [favourites, setFavourites] = useState([]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(`http://www.omdbapi.com/?apikey=42dc6836&s=all`)
+      .then(response => response.json())
+      .then(response => {
+        setMovies(response.Search);
+        setDisplayMovies(response.Search);
+      })
+      .catch(error => setError(error))
+      .finally(() => setIsLoading(false));
+  }, []);
+
+  useEffect(() => {
+    if(searchTerm) {
+      setDisplayMovies(movies.filter(movie => movie.Title.toLowerCase().includes(searchTerm.toLowerCase())));
+    } else {
+      setDisplayMovies(movies);
+    }
+  }, [searchTerm, movies]);
+
+  useEffect(() => {
+		const movieFavourites = JSON.parse(
+			localStorage.getItem('favourites')
+		);
+
+		setFavourites(movieFavourites);
+	}, []);
+
+  const handleSearch = event => {
+    setSearchTerm(event.target.value);
+  };
+
+  function  addFavouriteMovie(movie) {
+    
+    var new_arr;
+    if (favourites.includes(movie)) {
+      new_arr = favourites.filter(function(e) { return e !== movie });
+      setFavourites(new_arr)
+    }
+
+    else {
+      new_arr = [...favourites, movie];
+      setFavourites(new_arr);
+
+    }
+    console.log(movie);
+    saveToLocalStorage(new_arr);
+
+
+	};
+
+  const saveToLocalStorage = (items) => {
+		localStorage.setItem('favourites', JSON.stringify(items));
+	};
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error.message}</p>;
+  }
+
+  return (
+    <div className='App'>
+      <div className='header'>
+        <h1>Movie App</h1>
+        </div>
+        <input className = "search-box" type="text" placeholder="Search..." onChange={handleSearch} />
+        <br></br>
+        <br></br>
+        <div className='movie-list'>
+        {displayMovies.map((movie, index)=> (
+          <div className='movies'>
+            <div className='image-container'>
+          <img src={movie.Poster} className= {movie.Title} alt='movie' onClick={() => addFavouriteMovie(movie.Title)}></img>
+          <div className='image-text'>
+            {movie.Type}</div>
+          </div>
+       
+          <div className='movie-title'>
+          <h3 >{movie.Title} ({movie.Year})</h3>
+          </div>
+       
+          {favourites.includes(movie.Title) && <p>Added to favorites</p>}
+
+
+          {/*<div className='fav-btn' onClick={() => addFavouriteMovie(movie)}>
+            Fav
+					</div>    
+        */}
+     
+          <br></br>
+        <br></br>
+          </div>
+        
+        ))}
+
+        
+        
+      </div>
+  
+         {  /*
+     
+          favourites.includes(onclick) && <p>Added to favorites</p>
+      */}
+    </div>
+
+
+  );
+};
+
+
+
+
+
+
+/*
 function App() {
 
 
@@ -12,10 +141,8 @@ function App() {
 
   const getsearchedMovie= async (searchedMovie) => {
 
-    //const response = movies.filter(item => item.title === searchedMovie);
 		const response = await fetch(`http://www.omdbapi.com/?s=${searchedMovie}&apikey=42dc6836`);
 		const responseJson = await response.json();
-    //setSearchedMovie(response);
 
 		if (responseJson.Search) {
 			setMovies(responseJson.Search);
@@ -23,9 +150,7 @@ function App() {
 		}
 	};
 
-  /*useEffect(() => {
-		getsearchedMovie(searchedMovie);
-	}, [searchedMovie]);*/
+ 
 
   useEffect(() => {
 		const movieFavourites = JSON.parse(
@@ -38,34 +163,6 @@ function App() {
 	}, []);
 
 
-  
-  //const [favouriteMovies, setfavouriteMovies] = useState([]);
-  
-  /*
-  useEffect( () => {
-    fetch("./database/movies.json")
-    .then((res) => res.json())
-    .then((data) => setMovies(data[0]))
-
-  }, []);
-  */
-  
-  
-  /*const getData = () => {
-    fetch('./database/movies.json')
-    .then(response => {
-      return response.json();
-    }).then(data => {
-      setMovies(data[0]);
-    });
-  }
-
-  useEffect(() => {
-    getData()
-
-  },[])*/
-
-  //console.log("movies" , movies);
 
   const saveToLocalStorage = (items) => {
 		localStorage.setItem('react-movie-app-favourites', JSON.stringify(items));
@@ -125,20 +222,7 @@ function App() {
 				</div>
 			))}
           
-          {/*
-            movies.map( m => (
-
-              <div className='image-container d-flex justify-content-start m-3'>
-					      <div
-						      onClick={() => addFavouriteMovie(m)}
-						      className='overlay d-flex align-items-center justify-content-center'
-					        >
-      
-					</div>
-				</div>
-             
-            ))
-            */}
+         
 			</div>
 
       {
@@ -152,24 +236,11 @@ function App() {
         })
       }
 
-      {/*
-      {
-        movies && movies.length > 0 && movies.map((item) => <p>{item.title}</p>)
-        
-      } 
-    */}
-      
-      {/*
-      {movies && movies.map((m) => (
-      <div key={m.id}>
-        <p>{m.title}</p>
-      </div>
-      ))}
-      */}
+  
 
       
     </div>
   )
-}
+}*/
 
 export default App;

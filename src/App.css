@@ -1,11 +1,35 @@
 .App {
   text-align: center;
+  background-color: #282c34;
+  
 }
 
+img {
+  margin-right: 30px;   /* Horizontal Space */
+  margin-bottom: 30px;  /* Vertical Space */
+  width: 300px;
+  height: 450px;
+  border: 4px solid transparent;
+  padding: 4x;
+}
+
+/*
 .movies {
   padding: 5px 25px 10px 25px;
   max-width: 20%;
   
+}
+*/
+/*
+.image-container {
+  width: 120px;
+  height: 120px;
+
+}
+*/
+
+.movie-title {
+  color: white;
 }
 
 .header {
@@ -25,12 +49,27 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  
 }
-
+/*
 .search > input[type="text"]{
   width: 40%;
   min-width: 170px;
+}*/
+
+input[type=text] {
+  width: 130px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  transition: width 0.4s ease-in-out;
 }
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -61,7 +100,28 @@
     transform: rotate(360deg);
   }
 }
+.image-container {
+  position: relative; /* sets the position of the container to be relative */
+}
+.image-container:hover img {
+  filter: blur(3px); /* adds a 5px blur effect to the image */
+  cursor: pointer; /* changes the cursor to a pointer when hovering over the image */
+}
+.image-container:hover .image-text {
+  display: block; /* shows the text when hovering over the image */
+}
 
+.image-text {
+  position: absolute; /* sets the position of the text to be absolute */
+  background-color: rgba(0, 0, 0, 0); /* adds a semi-transparent black background to the text */
+  color: white; /* sets the text color to white */
+  padding: 10px; /* adds padding to the text */
+  display: none; /* hides the text by default */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
 /*
  HOVER EFFECT
 .imgtext {
