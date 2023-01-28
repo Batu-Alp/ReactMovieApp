@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-color: #282c34;
+  
 }
 
 img {
@@ -7,6 +9,8 @@ img {
   margin-bottom: 30px;  /* Vertical Space */
   width: 300px;
   height: 450px;
+  border: 4px solid transparent;
+  padding: 4x;
 }
 
 /*
@@ -23,6 +27,11 @@ img {
 
 }
 */
+
+.movie-title {
+  color: white;
+}
+
 .header {
   background-color: #282c34;
   height: 70px;
@@ -42,11 +51,25 @@ img {
   flex-direction: row;
   
 }
-
+/*
 .search > input[type="text"]{
   width: 40%;
   min-width: 170px;
+}*/
+
+input[type=text] {
+  width: 130px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  transition: width 0.4s ease-in-out;
 }
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

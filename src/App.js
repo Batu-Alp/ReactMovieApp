@@ -14,7 +14,7 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`http://www.omdbapi.com/?apikey=42dc6836&s=movie`)
+    fetch(`http://www.omdbapi.com/?apikey=42dc6836&s=all`)
       .then(response => response.json())
       .then(response => {
         setMovies(response.Search);
@@ -47,7 +47,7 @@ function App() {
   return (
     <div className='App'>
       <div className='header'>
-        <h1>Movies</h1>
+        <h1>Movie App</h1>
         </div>
         <input className = "search-box" type="text" placeholder="Search..." onChange={handleSearch} />
         <br></br>
@@ -61,8 +61,10 @@ function App() {
             {movie.Type}</div>
           </div>
        
+          <div className='movie-title'>
+          <h3 >{movie.Title} ({movie.Year})</h3>
+          </div>
 
-          <h3>{movie.Title} ({movie.Year})</h3>
           <br></br>
         <br></br>
           </div>
