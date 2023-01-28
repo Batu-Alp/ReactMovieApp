@@ -11,6 +11,7 @@ function App() {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [displayMovies, setDisplayMovies] = useState([]);
+	const [favourites, setFavourites] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -32,9 +33,40 @@ function App() {
     }
   }, [searchTerm, movies]);
 
+  useEffect(() => {
+		const movieFavourites = JSON.parse(
+			localStorage.getItem('favourites')
+		);
+
+		setFavourites(movieFavourites);
+	}, []);
+
   const handleSearch = event => {
     setSearchTerm(event.target.value);
   };
+
+  function  addFavouriteMovie(movie) {
+    
+    var new_arr;
+    if (favourites.includes(movie)) {
+      new_arr = favourites.filter(function(e) { return e !== movie });
+      setFavourites(new_arr)
+    }
+
+    else {
+      new_arr = [...favourites, movie];
+      setFavourites(new_arr);
+
+    }
+    console.log(movie);
+    saveToLocalStorage(new_arr);
+
+
+	};
+
+  const saveToLocalStorage = (items) => {
+		localStorage.setItem('favourites', JSON.stringify(items));
+	};
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -53,10 +85,10 @@ function App() {
         <br></br>
         <br></br>
         <div className='movie-list'>
-        {displayMovies.map(movie => (
+        {displayMovies.map((movie, index)=> (
           <div className='movies'>
             <div className='image-container'>
-          <img src={movie.Poster} alt='movie'></img>
+          <img src={movie.Poster} className= {movie.Title} alt='movie' onClick={() => addFavouriteMovie(movie.Title)}></img>
           <div className='image-text'>
             {movie.Type}</div>
           </div>
@@ -64,14 +96,31 @@ function App() {
           <div className='movie-title'>
           <h3 >{movie.Title} ({movie.Year})</h3>
           </div>
+       
+          {favourites.includes(movie.Title) && <p>Added to favorites</p>}
 
+
+          {/*<div className='fav-btn' onClick={() => addFavouriteMovie(movie)}>
+            Fav
+					</div>    
+        */}
+     
           <br></br>
         <br></br>
           </div>
         
         ))}
+
+        
+        
       </div>
+  
+         {  /*
+     
+          favourites.includes(onclick) && <p>Added to favorites</p>
+      */}
     </div>
+
 
   );
 };
