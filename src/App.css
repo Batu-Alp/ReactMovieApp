@@ -77,9 +77,28 @@ img {
     transform: rotate(360deg);
   }
 }
+.image-container {
+  position: relative; /* sets the position of the container to be relative */
+}
+.image-container:hover img {
+  filter: blur(3px); /* adds a 5px blur effect to the image */
+  cursor: pointer; /* changes the cursor to a pointer when hovering over the image */
+}
+.image-container:hover .image-text {
+  display: block; /* shows the text when hovering over the image */
+}
 
-
-
+.image-text {
+  position: absolute; /* sets the position of the text to be absolute */
+  background-color: rgba(0, 0, 0, 0); /* adds a semi-transparent black background to the text */
+  color: white; /* sets the text color to white */
+  padding: 10px; /* adds padding to the text */
+  display: none; /* hides the text by default */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
 /*
  HOVER EFFECT
 .imgtext {

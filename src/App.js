@@ -57,7 +57,11 @@ function App() {
           <div className='movies'>
             <div className='image-container'>
           <img src={movie.Poster} alt='movie'></img>
+          <div className='image-text'>
+            {movie.Type}</div>
           </div>
+       
+
           <h3>{movie.Title} ({movie.Year})</h3>
           <br></br>
         <br></br>
